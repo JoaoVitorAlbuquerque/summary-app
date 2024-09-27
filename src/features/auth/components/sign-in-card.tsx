@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -14,8 +15,19 @@ interface SignInCardProps {
 }
 
 export function SignInCard({ setState }: SignInCardProps) {
+  const { signIn } = useAuthActions();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [pending, setPending] = useState(false);
+
+  const onProviderSignIn = (value: 'google' | 'facebook') => {
+    setPending(true);
+    signIn(value)
+      .finally(() => {
+        setPending(false);
+      });
+  };
 
   return (
     <Card className="w-full h-full p-8">
@@ -32,7 +44,7 @@ export function SignInCard({ setState }: SignInCardProps) {
       <CardContent className="space-y-5 px-0 pb-0">
         <form className="space-y-2.5">
           <Input
-            disabled={false}
+            disabled={pending}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
@@ -41,7 +53,7 @@ export function SignInCard({ setState }: SignInCardProps) {
           />
 
           <Input
-            disabled={false}
+            disabled={pending}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Senha"
@@ -49,7 +61,7 @@ export function SignInCard({ setState }: SignInCardProps) {
             required
           />
 
-          <Button type="submit" className="w-full" size="lg" disabled={false}>
+          <Button type="submit" className="w-full" size="lg" disabled={pending}>
             Continuar
           </Button>
         </form>
@@ -58,8 +70,8 @@ export function SignInCard({ setState }: SignInCardProps) {
 
         <div className="flex flex-col gap-y-2.5">
           <Button
-            disabled={false}
-            onClick={() => {}}
+            disabled={pending}
+            onClick={() => onProviderSignIn('google')}
             variant="outline"
             size="lg"
             className="w-full relative"
@@ -69,8 +81,8 @@ export function SignInCard({ setState }: SignInCardProps) {
           </Button>
 
           <Button
-            disabled={false}
-            onClick={() => {}}
+            disabled={pending}
+            onClick={() => onProviderSignIn('facebook')}
             variant="outline"
             size="lg"
             className="w-full relative"
