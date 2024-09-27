@@ -10,6 +10,15 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+      keyframes: {
+        rotateY: {
+          '0%': { transform: 'rotateY(0deg)' },
+          '100%': { transform: 'rotateY(360deg)' },
+        },
+      },
+      animation: {
+        rotateY: 'rotateY 1.5s ease-in-out',
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
