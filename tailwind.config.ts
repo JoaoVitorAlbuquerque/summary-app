@@ -13,11 +13,11 @@ const config: Config = {
       keyframes: {
         rotateY: {
           '0%': { transform: 'rotateY(0deg)' },
-          '100%': { transform: 'rotateY(360deg)' },
+          '100%': { transform: 'rotateY(180deg)' },
         },
       },
       animation: {
-        rotateY: 'rotateY 1.5s ease-in-out',
+        rotateY: 'rotateY 1s ease-in-out',
       },
   		colors: {
   			background: 'hsl(var(--background))',

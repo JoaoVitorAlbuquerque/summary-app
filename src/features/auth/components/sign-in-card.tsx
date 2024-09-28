@@ -46,7 +46,7 @@ export function SignInCard({ setState }: SignInCardProps) {
 
   return (
     <Card className="w-full h-full p-8 animate-rotateY">
-      <CardHeader className="px-0 pt-0">
+      <CardHeader className="px-0 pt-0 animate-rotateY">
         <CardTitle>
           Faça o login para continuar
         </CardTitle>
@@ -63,7 +63,7 @@ export function SignInCard({ setState }: SignInCardProps) {
         </div>
       )}
 
-      <CardContent className="space-y-5 px-0 pb-0">
+      <CardContent className="space-y-5 px-0 pb-0 animate-rotateY">
         <form onSubmit={onPasswordSignIn} className="space-y-2.5">
           <Input
             disabled={pending}
@@ -109,13 +109,13 @@ export function SignInCard({ setState }: SignInCardProps) {
             size="lg"
             className="w-full relative"
           >
-            <FaFacebook className="size-5 absolute top-3 left-2.5" />
+            <FaFacebook className="size-5 absolute top-3 left-2.5 text-blue-600" />
             Continue com Facebook
           </Button>
         </div>
 
         <p className="text-xs text-muted-foreground">
-          Não tem uma conta? <span onClick={() => setState('signUp')} className="text-sky-700 hover:underline cursor-pointer">Clique aqui, e comece sua jornada</span>
+          Não tem uma conta? <span onClick={() => setState('signUp')} className="hover:text-sky-700 hover:underline cursor-pointer">Clique aqui, e comece sua jornada</span>
         </p>
       </CardContent>
     </Card>
