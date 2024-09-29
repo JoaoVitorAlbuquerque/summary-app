@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCurrentUser } from "../hooks/user-current-user";
+import { useCurrentUser } from "../api/user-current-user";
 import { Loader, LogOut } from "lucide-react";
 import { useAuthActions } from "@convex-dev/auth/react";
 
@@ -30,7 +30,7 @@ export const UserButton = () => {
 
   const { image, name } = data;
 
-  const avatarFallBack = name?.charAt(0).toUpperCase();
+  const avatarFallBack = name!.charAt(0).toUpperCase();
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className="outline-none relative">
