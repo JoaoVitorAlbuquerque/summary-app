@@ -66,8 +66,6 @@ export function PreferencesModal({
   async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const ok = await confirm();
-
     updateWorkspace({
       id: workspaceId,
       name: value
