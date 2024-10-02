@@ -13,9 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateChannel } from "../api/use-create-channel";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function CreateChannelModal() {
+  const router = useRouter();
   const workspaceId = useWorkspaceId();
+
   const { mutate, isPending } = useCreateChannel();
   const [open, setOpen] = useCreateChannelModal();
 
@@ -39,7 +43,12 @@ export function CreateChannelModal() {
       { name, workspaceId },
       {
         onSuccess(id) {
+          toast.success('Sala de estudos criada.');
+          router.push(`/workspace/${workspaceId}/channel/${id}`);
           handleClose();
+        },
+        onError(error) {
+          toast.error('Erro ao criar a sala.');
         },
       }
     );
