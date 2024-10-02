@@ -12,13 +12,9 @@ import { WorkspaceSection } from "./workspace-section";
 import { useGetMembers } from "@/features/members/api/use-get-members";
 import { UserItem } from "./user-item";
 import { useCreateChannelModal } from "@/features/channels/store/use-create-channel-modal";
-import { useState } from "react";
-import { CreateChannelModal } from "@/features/channels/components/create-channel-modal";
 
 export function WorkSpaceSidebar() {
   const workspaceId = useWorkspaceId();
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [_open, setOpen] = useCreateChannelModal();
 
