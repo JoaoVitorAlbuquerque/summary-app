@@ -1,17 +1,18 @@
-import Quill, { type QuillOptions } from "quill";
+import Image from "next/image";
+import { Delta, Op } from "quill/core";
+import { MdSend } from "react-icons/md";
 import { PiTextAa } from "react-icons/pi";
+import Quill, { type QuillOptions } from "quill";
+import { ImageIcon, Smile, FileIcon, XIcon } from "lucide-react";
 import { MutableRefObject, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import "quill/dist/quill.snow.css";
 
 import { Button } from "./ui/button";
 import { Hint } from "./hint";
+import { EmojiPopover } from "./emoji-popover";
 
-import { ImageIcon, Smile, FileIcon, XIcon } from "lucide-react";
-import { MdSend } from "react-icons/md";
-import { Delta, Op } from "quill/core";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 type EditorValue = {
   image: File | null;
@@ -136,6 +137,12 @@ export default function Editor({
     }
   };
 
+  const onEmojiSelect = (emoji: any) => {
+    const quill = quillRef.current;
+
+    quill?.insertText(quill.getSelection()?.index || 0, emoji.native);
+  };
+
   const isEmpty = !image && text.replace(/<(.|\n)*?>/g, "").trim().length === 0;
 
   return (
@@ -191,16 +198,15 @@ export default function Editor({
             </Button>
           </Hint>
 
-          <Hint label="Emoji">
+          <EmojiPopover onEmojiSelect={onEmojiSelect}>
             <Button
               disabled={disabled}
               size="iconSm"
               variant="ghost"
-              onClick={() => {}}
             >
               <Smile className="size-4" />
             </Button>
-          </Hint>
+          </EmojiPopover>
 
           {variant === "create" && (
             <>
@@ -279,7 +285,10 @@ export default function Editor({
       </div>
 
       {variant === "create" && (
-        <div className="p-2 text-[10px] text-muted-foreground flex justify-end">
+        <div className={cn(
+          "p-2 text-[10px] text-muted-foreground flex justify-end opacity-0 transition",
+          !isEmpty && "opacity-100",
+        )}>
           <p>
             <strong>Shift + Enter</strong> para adicionar uma nova linha
           </p>
